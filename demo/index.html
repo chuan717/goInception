@@ -8,7 +8,7 @@
   
   <meta name="author" content="hanchuanchuan">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>安装 - goInception使用文档</title>
+  <title>使用示例 - goInception使用文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5b89\u88c5";
-    var mkdocs_page_input_path = "install.md";
-    var mkdocs_page_url = "/install/";
+    var mkdocs_page_name = "\u4f7f\u7528\u793a\u4f8b";
+    var mkdocs_page_input_path = "demo.md";
+    var mkdocs_page_url = "/demo/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -52,23 +52,26 @@
     <a class="" href="..">介绍</a>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">安装</a>
+	    </li>
+          
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">安装</a>
+    <a class="current" href="./">使用示例</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#_1">二进制安装</a></li>
+    <li class="toctree-l2"><a href="#python">python调用</a></li>
     
 
-    <li class="toctree-l2"><a href="#_2">源码安装</a></li>
+    <li class="toctree-l2"><a href="#_1">系统变量</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_2">进程列表</a></li>
     
 
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../demo/">使用示例</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -98,7 +101,7 @@
     
       
     
-    <li>安装</li>
+    <li>使用示例</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -108,21 +111,123 @@
           <div role="main">
             <div class="section">
               
-                <h3 id="_1">二进制安装</h3>
-<p><a href="https://github.com/hanchuanchuan/goInceptionLFS">goInception安装包</a></p>
-<h3 id="_2">源码安装</h3>
-<pre><code class="sh">
-# 下载源码
-git clone https://github.com/hanchuanchuan/goInception
-
-cd goInception
-
-# 构建二进制包
-go build -o goInception tidb-server/main.go
-
-# 启动服务
-./goInception -config=config/config.toml
+                <p>启动</p>
+<pre><code class="bash">goInception -config=config/config.toml
 </code></pre>
+
+<h3 id="python">python调用</h3>
+<pre><code>pip install pymysql prettytable
+</code></pre>
+
+<pre><code class="python">#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
+import pymysql
+import prettytable as pt
+tb = pt.PrettyTable()
+
+sql = '''/*--user=admin;--password=han123;--host=127.0.0.1;--check=1;--port=3306;*/
+inception_magic_start;
+use test_inc;
+create table t1(id int primary key,c1 int);
+insert into t1(id,c1,c2) values(1,1,1);
+inception_magic_commit;'''
+
+conn = pymysql.connect(host='127.0.0.1', user='', passwd='',
+                       db='', port=4000, charset=&quot;utf8mb4&quot;)
+cur = conn.cursor()
+ret = cur.execute(sql)
+result = cur.fetchall()
+cur.close()
+conn.close()
+
+tb.field_names = [i[0] for i in cur.description]
+for row in result:
+    tb.add_row(row)
+print(tb)
+</code></pre>
+
+<p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>order_id</th>
+<th>stage</th>
+<th>ErrLevel</th>
+<th>stagestatus</th>
+<th>errormessage</th>
+<th>sql</th>
+<th>affected_rows</th>
+<th>sequence</th>
+<th>backup_dbname</th>
+<th>execute_time</th>
+<th>backup_time</th>
+<th>sqlsha1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>CHECKED</td>
+<td>0</td>
+<td>Audit Completed</td>
+<td></td>
+<td>use test_inc</td>
+<td>0</td>
+<td>0_0_00000000</td>
+<td>None</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CHECKED</td>
+<td>0</td>
+<td>Audit Completed</td>
+<td></td>
+<td>create table t1(id int primary key,c1 int)</td>
+<td>0</td>
+<td>0_0_00000001</td>
+<td>None</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CHECKED</td>
+<td>2</td>
+<td>Audit Completed</td>
+<td>Column 't1.c2' not existed.</td>
+<td>insert into t1(id,c1,c2) values(1,1,1)</td>
+<td>1</td>
+<td>0_0_00000002</td>
+<td>None</td>
+<td>0</td>
+<td>0</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_1">系统变量</h3>
+<p>连接</p>
+<pre><code class="bash">mysql -h127.0.0.1 -P4000
+</code></pre>
+
+<pre><code class="sql">inception show variables;
+</code></pre>
+
+<p><img alt="variables列表" src="../images/variables.png" /></p>
+<h3 id="_2">进程列表</h3>
+<p>连接</p>
+<pre><code class="bash">mysql -h127.0.0.1 -P4000
+</code></pre>
+
+<pre><code class="sql">inception show processlist;
+</code></pre>
+
+<p><img alt="variables列表" src="../images/processlist.png" /></p>
               
             </div>
           </div>
@@ -130,10 +235,10 @@ go build -o goInception tidb-server/main.go
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../demo/" class="btn btn-neutral float-right" title="使用示例">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../options/" class="btn btn-neutral float-right" title="审核参数">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="介绍"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../install/" class="btn btn-neutral" title="安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -159,10 +264,10 @@ go build -o goInception tidb-server/main.go
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../demo/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../options/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

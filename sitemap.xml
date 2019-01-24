@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>/</loc>
+     <loc>https://hanchuanchuan.github.io/goInception//</loc>
      <lastmod>2019-01-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -11,7 +11,7 @@
 
     
     <url>
-     <loc>/install/</loc>
+     <loc>https://hanchuanchuan.github.io/goInception//install/</loc>
      <lastmod>2019-01-24</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -19,7 +19,15 @@
 
     
     <url>
-     <loc>/options/</loc>
+     <loc>https://hanchuanchuan.github.io/goInception//demo/</loc>
+     <lastmod>2019-01-24</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://hanchuanchuan.github.io/goInception//options/</loc>
      <lastmod>2019-01-24</lastmod>
      <changefreq>daily</changefreq>
     </url>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  
+  <meta name="author" content="hanchuanchuan">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>审核参数 - goInception使用文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
@@ -55,6 +55,11 @@
             <li class="toctree-l1">
 		
     <a class="" href="../install/">安装</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../demo/">使用示例</a>
 	    </li>
           
             <li class="toctree-l1 current">
@@ -137,152 +142,206 @@
 <tr>
 <td>check_autoincrement_datatype</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>当建表时自增列的类型不为int或者bigint时报错</td>
 </tr>
 <tr>
 <td>check_autoincrement_init_value</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>当建表时自增列的值指定的不为1，则报错</td>
 </tr>
 <tr>
 <td>check_autoincrement_name</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表时，如果指定的自增列的名字不为ID，则报错，说明是有意义的，给提示</td>
 </tr>
 <tr>
 <td>check_column_comment</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表时，列没有注释时报错</td>
 </tr>
 <tr>
 <td>check_column_default_value</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>检查在建表、修改列、新增列时，新的列属性是不是要有默认值</td>
 </tr>
 <tr>
 <td>check_dml_limit</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>在DML语句中使用了LIMIT时，是不是要报错</td>
 </tr>
 <tr>
 <td>check_dml_orderby</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>在DML语句中使用了Order By时，是不是要报错</td>
 </tr>
 <tr>
 <td>check_dml_where</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>在DML语句中没有WHERE条件时，是不是要报错</td>
+</tr>
+<tr>
+<td>check_identifier</td>
+<td>false</td>
+<td>true,false</td>
+<td>检查标识符是否正确,规则是[a-z,A-Z,0-9,_]</td>
 </tr>
 <tr>
 <td>check_index_prefix</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>是不是要检查索引名字前缀为"idx_"，检查唯一索引前缀是不是"uniq_"</td>
 </tr>
 <tr>
 <td>check_insert_field</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>是不是要检查插入语句中的列链表的存在性</td>
 </tr>
 <tr>
 <td>check_primary_key</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表时，如果没有主键，则报错</td>
 </tr>
 <tr>
 <td>check_table_comment</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表时，表没有注释时报错</td>
 </tr>
 <tr>
 <td>check_timestamp_default</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表时，如果没有为timestamp类型指定默认值，则报错</td>
 </tr>
 <tr>
 <td>enable_autoincrement_unsigned</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>自增列是不是要为无符号型</td>
 </tr>
 <tr>
 <td>enable_blob_type</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>检查是不是支持BLOB字段，包括建表、修改列、新增列操作</td>
 </tr>
 <tr>
 <td>enable_column_charset</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>允许列自己设置字符集</td>
+</tr>
+<tr>
+<td>enable_drop_table</td>
+<td>false</td>
+<td>true,false</td>
+<td>是否允许删除表</td>
 </tr>
 <tr>
 <td>enable_enum_set_bit</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>是不是支持enum,set,bit数据类型</td>
 </tr>
 <tr>
 <td>enable_foreign_key</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>是不是支持外键</td>
 </tr>
 <tr>
 <td>enable_identifer_keyword</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>检查在SQL语句中，是不是有标识符被写成MySQL的关键字，默认值为报警。</td>
 </tr>
 <tr>
 <td>enable_not_innodb</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>建表指定的存储引擎不为Innodb，不报错</td>
 </tr>
 <tr>
 <td>enable_nullable</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>创建或者新增列时如果列为NULL，是不是报错</td>
 </tr>
 <tr>
 <td>enable_orderby_rand</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>order by rand时是不是报错</td>
 </tr>
 <tr>
 <td>enable_partition_table</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>是不是支持分区表</td>
+</tr>
+<tr>
+<td>enable_pk_columns_only_int</td>
+<td>false</td>
+<td>true,false</td>
+<td>是否强制主键列必须是int</td>
 </tr>
 <tr>
 <td>enable_select_star</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>Select*时是不是要报错</td>
 </tr>
 <tr>
 <td>merge_alter_table</td>
 <td>false</td>
-<td>true/false</td>
+<td>true,false</td>
 <td>在多个改同一个表的语句出现是，报错，提示合成一个</td>
+</tr>
+<tr>
+<td>max_char_length</td>
+<td>0</td>
+<td>int</td>
+<td>最大char长度,当超出时警告转换为varchar类型</td>
+</tr>
+<tr>
+<td>max_keys</td>
+<td>3</td>
+<td>int</td>
+<td>单表允许的最大索引数</td>
+</tr>
+<tr>
+<td>max_key_parts</td>
+<td>3</td>
+<td>int</td>
+<td>一个索引最多可指定的列数</td>
+</tr>
+<tr>
+<td>max_update_rows</td>
+<td>5000</td>
+<td>int</td>
+<td>当update/delete预估受影响行数超出设置值时警告</td>
+</tr>
+<tr>
+<td>max_primary_key_parts</td>
+<td>3</td>
+<td>int</td>
+<td>主键最多可指定的列数</td>
+</tr>
+<tr>
+<td>sql_safe_updates</td>
+<td>0</td>
+<td>-1,0,1</td>
+<td>安全更新.-1表示不做操作,基于远端数据库,0表示关闭安全更新,1表示开启安全更新</td>
 </tr>
 </tbody>
 </table>
@@ -303,7 +362,7 @@ inception_osc_print_none        用来设置在Inception返回结果集中，对
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../install/" class="btn btn-neutral" title="安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../demo/" class="btn btn-neutral" title="使用示例"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -329,7 +388,7 @@ inception_osc_print_none        用来设置在Inception返回结果集中，对
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../demo/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
