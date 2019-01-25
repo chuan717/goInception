@@ -7,24 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="goInception使用文档">
   <meta name="author" content="hanchuanchuan">
-  <link rel="shortcut icon" href="./img/favicon.ico">
+  <link rel="shortcut icon" href="img/favicon.ico">
   <title>介绍 - goInception使用文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="./css/highlight.css">
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
   <script>
     // Current page data
     var mkdocs_page_name = "\u4ecb\u7ecd";
     var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = "/";
+    var mkdocs_page_url = "/hanchuanchuan/goInception/";
   </script>
   
-  <script src="./js/jquery-2.1.1.min.js"></script>
-  <script src="./js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
 
@@ -38,7 +39,7 @@
         <a href="." class="icon icon-home"> goInception使用文档</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -56,7 +57,11 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#_2">致谢</a></li>
+            <li><a class="toctree-l3" href="#_2">架构</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">使用方式</a></li>
+        
+            <li><a class="toctree-l3" href="#_4">致谢</a></li>
         
         </ul>
     
@@ -71,12 +76,17 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="params/">调用选项</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <a class="" href="demo/">使用示例</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="options/">审核参数</a>
+    <a class="" href="options/">审核规则</a>
 	    </li>
           
         </ul>
@@ -116,8 +126,19 @@
               
                 <h2 id="_1">介绍</h2>
 <p>goInception是一个集审核、执行、备份及生成回滚语句于一身的MySQL运维工具，
-通过对执行sql的语法解析，返回基于自定义审核规则的结果，并提供执行和备份及生成回滚语句的功能。</p>
-<h4 id="_2">致谢</h4>
+通过对执行SQL的语法解析，返回基于自定义规则的审核结果，并提供执行和备份及生成回滚语句的功能。</p>
+<h4 id="_2">架构</h4>
+<p><img alt="流程" src="images/process.png" /></p>
+<h4 id="_3">使用方式</h4>
+<p>goInception延用inception的使用方式，在审核的sql开始前添加注释来指定远端服务器，并在sql的前后添加特殊标识以区分待审核语句，示例如下：</p>
+<pre><code class="sql">/*--user=root;--password=root;--host=127.0.0.1;--check=1;--port=3306;*/
+inception_magic_start;
+use test;
+create table t1(id int primary key);
+inception_magic_commit;
+</code></pre>
+
+<h4 id="_4">致谢</h4>
 <pre><code>goInception基于TiDB的语法解析器，和业内有名的inpcetion审核工具重构。
 </code></pre>
 <ul>
@@ -166,14 +187,13 @@
     </span>
 </div>
     <script>var base_url = '.';</script>
-    <script src="./js/theme.js"></script>
-      <script src="./search/require.js"></script>
-      <script src="./search/search.js"></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 0.17.2
-Build Date UTC : 2019-01-24 14:23:10
+MkDocs version : 1.0.4
+Build Date UTC : 2019-01-25 08:53:34
 -->

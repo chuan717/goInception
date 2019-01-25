@@ -8,7 +8,7 @@
   
   <meta name="author" content="hanchuanchuan">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>使用示例 - goInception使用文档</title>
+  <title>调用选项 - goInception使用文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u4f7f\u7528\u793a\u4f8b";
-    var mkdocs_page_input_path = "demo.md";
-    var mkdocs_page_url = "/hanchuanchuan/goInception/demo/";
+    var mkdocs_page_name = "\u8c03\u7528\u9009\u9879";
+    var mkdocs_page_input_path = "params.md";
+    var mkdocs_page_url = "/hanchuanchuan/goInception/params/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -58,26 +58,23 @@
     <a class="" href="../install/">安装</a>
 	    </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../params/">调用选项</a>
-	    </li>
-          
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">使用示例</a>
+    <a class="current" href="./">调用选项</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#python">python调用</a></li>
+    <li class="toctree-l2"><a href="#_1">使用示例</a></li>
     
 
-    <li class="toctree-l2"><a href="#_1">系统变量</a></li>
-    
-
-    <li class="toctree-l2"><a href="#_2">进程列表</a></li>
+    <li class="toctree-l2"><a href="#_2">选项列表</a></li>
     
 
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../demo/">使用示例</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -107,10 +104,10 @@
     
       
     
-    <li>使用示例</li>
+    <li>调用选项</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/hanchuanchuan/goInception/edit/master/docs/demo.md"
+        <a href="https://github.com/hanchuanchuan/goInception/edit/master/docs/params.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -120,119 +117,76 @@
           <div role="main">
             <div class="section">
               
-                <h3 id="python">python调用</h3>
-<pre><code>pip install pymysql prettytable
-</code></pre>
-
-<pre><code class="python">#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
-import pymysql
-import prettytable as pt
-tb = pt.PrettyTable()
-
-sql = '''/*--user=root;--password=root;--host=127.0.0.1;--check=1;--port=3306;*/
+                <h4 id="_1">使用示例</h4>
+<p>goInception延用inception的使用方式，在审核的sql开始前添加注释来指定远端服务器，并在sql的前后添加特殊标识以区分待审核语句，示例如下：</p>
+<pre><code class="sql">/*--user=root;--password=root;--host=127.0.0.1;--check=1;--port=3306;*/
 inception_magic_start;
-use test_inc;
-create table t1(id int primary key,c1 int);
-insert into t1(id,c1,c2) values(1,1,1);
-inception_magic_commit;'''
-
-conn = pymysql.connect(host='127.0.0.1', user='', passwd='',
-                       db='', port=4000, charset=&quot;utf8mb4&quot;)
-cur = conn.cursor()
-ret = cur.execute(sql)
-result = cur.fetchall()
-cur.close()
-conn.close()
-
-tb.field_names = [i[0] for i in cur.description]
-for row in result:
-    tb.add_row(row)
-print(tb)
+use test;
+create table t1(id int primary key);
+inception_magic_commit;
 </code></pre>
 
-<p>返回结果：</p>
+<h3 id="_2">选项列表</h3>
 <table>
 <thead>
 <tr>
-<th>order_id</th>
-<th>stage</th>
-<th>error_level</th>
-<th>stage_status</th>
-<th>error_message</th>
-<th>sql</th>
-<th>affected_rows</th>
-<th>sequence</th>
-<th>backup_dbname</th>
-<th>execute_time</th>
-<th>backup_time</th>
-<th>sqlsha1</th>
+<th>参数</th>
+<th>默认值</th>
+<th>数据类型</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>CHECKED</td>
-<td>0</td>
-<td>Audit Completed</td>
-<td></td>
-<td>use test_inc</td>
-<td>0</td>
-<td>0_0_00000000</td>
-<td>None</td>
-<td>0</td>
-<td>0</td>
-<td>None</td>
+<td>host</td>
+<td>''</td>
+<td>string</td>
+<td>线上数据库IP地址</td>
 </tr>
 <tr>
-<td>2</td>
-<td>CHECKED</td>
+<td>port</td>
 <td>0</td>
-<td>Audit Completed</td>
-<td></td>
-<td>create table t1(id int primary key,c1 int)</td>
-<td>0</td>
-<td>0_0_00000001</td>
-<td>None</td>
-<td>0</td>
-<td>0</td>
-<td>None</td>
+<td>int</td>
+<td>线上数据库端口</td>
 </tr>
 <tr>
-<td>3</td>
-<td>CHECKED</td>
-<td>2</td>
-<td>Audit Completed</td>
-<td>Column 't1.c2' not existed.</td>
-<td>insert into t1(id,c1,c2) values(1,1,1)</td>
-<td>1</td>
-<td>0_0_00000002</td>
-<td>None</td>
-<td>0</td>
-<td>0</td>
-<td>None</td>
+<td>user</td>
+<td>''</td>
+<td>string</td>
+<td>线上数据库用户名</td>
+</tr>
+<tr>
+<td>password</td>
+<td>''</td>
+<td>string</td>
+<td>线上数据库密码</td>
+</tr>
+<tr>
+<td>check</td>
+<td>false</td>
+<td>bool</td>
+<td>开启审核功能</td>
+</tr>
+<tr>
+<td>execute</td>
+<td>false</td>
+<td>bool</td>
+<td>开启执行功能</td>
+</tr>
+<tr>
+<td>backup</td>
+<td>false</td>
+<td>bool</td>
+<td>开启备份功能，仅在执行时生效</td>
+</tr>
+<tr>
+<td>ignore_warnings</td>
+<td>false</td>
+<td>bool</td>
+<td>是否忽略警告，仅在执行时生效。该参数控制有警告时是继续执行还是中止</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_1">系统变量</h3>
-<p>连接</p>
-<pre><code class="bash">mysql -h127.0.0.1 -P4000
-</code></pre>
-
-<pre><code class="sql">inception show variables;
-</code></pre>
-
-<p><img alt="variables列表" src="../images/variables.png" /></p>
-<h3 id="_2">进程列表</h3>
-<p>连接</p>
-<pre><code class="bash">mysql -h127.0.0.1 -P4000
-</code></pre>
-
-<pre><code class="sql">inception show processlist;
-</code></pre>
-
-<p><img alt="variables列表" src="../images/processlist.png" /></p>
               
             </div>
           </div>
@@ -240,10 +194,10 @@ print(tb)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../options/" class="btn btn-neutral float-right" title="审核规则">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../demo/" class="btn btn-neutral float-right" title="使用示例">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../params/" class="btn btn-neutral" title="调用选项"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../install/" class="btn btn-neutral" title="安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -271,10 +225,10 @@ print(tb)
           <a href="https://github.com/hanchuanchuan/goInception/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../params/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../install/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../options/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../demo/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
