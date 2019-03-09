@@ -63,6 +63,12 @@
 
     <li class="toctree-l2"><a href="#_2">源码安装</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_3">启动(注意指定配置文件)</a></li>
+        
+        </ul>
+    
 
     </ul>
 	    </li>
@@ -85,6 +91,11 @@
             <li class="toctree-l1">
 		
     <a class="" href="../backup/">备份功能</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../osc/">DDL变更:pt-osc</a>
 	    </li>
           
         </ul>
@@ -123,23 +134,31 @@
             <div class="section">
               
                 <h3 id="_1">二进制安装</h3>
-<p><a href="https://github.com/hanchuanchuan/goInceptionLFS">goInception安装包</a></p>
+<p><a href="https://github.com/hanchuanchuan/goInception/releases">goInception安装包</a></p>
 <h3 id="_2">源码安装</h3>
+<ul>
+<li>
+<p><em>go版本v1.11.3</em></p>
+</li>
+<li>
+<p><em>使用go mod做依赖管理</em></p>
+</li>
+</ul>
 <pre><code class="sh">
 # 下载源码
 git clone https://github.com/hanchuanchuan/goInception
 
 cd goInception
 
+make parser
+
 # 构建二进制包
 go build -o goInception tidb-server/main.go
 
-# 启动服务
-./goInception -config=config/config.toml
 </code></pre>
 
-<p>启动</p>
-<pre><code class="bash">goInception -config=config/config.toml
+<h4 id="_3">启动(注意指定配置文件)</h4>
+<pre><code class="sh">./goInception -config=config/config.toml
 </code></pre>
               
             </div>

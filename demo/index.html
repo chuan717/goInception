@@ -90,6 +90,11 @@
     <a class="" href="../backup/">备份功能</a>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <a class="" href="../osc/">DDL变更:pt-osc</a>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -171,8 +176,8 @@ print(tb)
 <th>sequence</th>
 <th>backup_dbname</th>
 <th>execute_time</th>
-<th>backup_time</th>
 <th>sqlsha1</th>
+<th>backup_time</th>
 </tr>
 </thead>
 <tbody>
@@ -181,28 +186,28 @@ print(tb)
 <td>CHECKED</td>
 <td>0</td>
 <td>Audit Completed</td>
-<td></td>
+<td>None</td>
 <td>use test_inc</td>
 <td>0</td>
 <td>0_0_00000000</td>
 <td>None</td>
 <td>0</td>
-<td>0</td>
 <td>None</td>
+<td>0</td>
 </tr>
 <tr>
 <td>2</td>
 <td>CHECKED</td>
 <td>0</td>
 <td>Audit Completed</td>
-<td></td>
+<td>None</td>
 <td>create table t1(id int primary key,c1 int)</td>
 <td>0</td>
 <td>0_0_00000001</td>
 <td>None</td>
 <td>0</td>
-<td>0</td>
 <td>None</td>
+<td>0</td>
 </tr>
 <tr>
 <td>3</td>
@@ -215,8 +220,8 @@ print(tb)
 <td>0_0_00000002</td>
 <td>None</td>
 <td>0</td>
-<td>0</td>
 <td>None</td>
+<td>0</td>
 </tr>
 </tbody>
 </table>

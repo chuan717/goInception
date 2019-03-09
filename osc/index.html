@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="hanchuanchuan">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>DDL变更:pt-osc - goInception使用文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "DDL\u53d8\u66f4:pt-osc";
+    var mkdocs_page_input_path = "osc.md";
+    var mkdocs_page_url = "/hanchuanchuan/goInception/osc/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> goInception使用文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">介绍</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">安装</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../params/">调用选项</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../demo/">使用示例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../options/">审核规则</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../backup/">备份功能</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">DDL变更:pt-osc</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#_1">使用说明</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_2">参数说明</a></li>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">goInception使用文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>DDL变更:pt-osc</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/hanchuanchuan/goInception/edit/master/docs/osc.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="_1">使用说明</h3>
+<p><strong>参数设置</strong></p>
+<p>pt-osc工具的设置参数可以可以通过<code>inception show variables like 'osc%';</code>查看</p>
+<pre><code class="sql">inception show variables like 'osc%';
+</code></pre>
+
+<p>支持以下方式设置:</p>
+<ul>
+<li>1.通过<code>inception set</code>设置</li>
+</ul>
+<pre><code class="sql">inception set osc_check_interval = 10;
+</code></pre>
+
+<ul>
+<li>2.配置config.toml,并通过<code>-config=config.toml</code>指定配置文件启动</li>
+</ul>
+<p><strong>查看osc进程</strong></p>
+<!-- sqlsha1 -->
+
+<pre><code class="sql">inception get osc processlist;
+</code></pre>
+
+<p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>DBNAME</th>
+<th>TABLENAME</th>
+<th>COMMAND</th>
+<th>SQLSHA1</th>
+<th>PERCENT</th>
+<th>REMAINTIME</th>
+<th>INFOMATION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_inc</td>
+<td>t1</td>
+<td>alter table t1 add column c33 int</td>
+<td>*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F</td>
+<td>9</td>
+<td>00:36</td>
+<td>Copying <code>test_inc</code>.<code>t1</code>:   9% 00:36 remain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>查看指定osc进程</strong></p>
+<pre><code class="sql">inception get osc_percent '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>DBNAME</th>
+<th>TABLENAME</th>
+<th>SQLSHA1</th>
+<th>PERCENT</th>
+<th>REMAINTIME</th>
+<th>INFOMATION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_inc</td>
+<td>t1</td>
+<td>*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F</td>
+<td>49</td>
+<td>00:14</td>
+<td>Copying <code>test_inc</code>.<code>t1</code>:  49% 00:14 remain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>终止指定osc进程</strong>
+<code>终止后注意手动清理相关辅助表</code></p>
+<pre><code class="sql">inception kill osc '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+-- 或同义词
+inception stop alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<h3 id="_2">参数说明</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>可选范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>osc_on</td>
+<td>false</td>
+<td>bool</td>
+<td>OSC开关</td>
+</tr>
+<tr>
+<td>osc_alter_foreign_keys_method</td>
+<td>none</td>
+<td>string</td>
+<td>对应OSC参数alter-foreign-keys-method</td>
+</tr>
+<tr>
+<td>osc_bin_dir</td>
+<td>/usr/local/bin</td>
+<td>string</td>
+<td>pt-online-schema-change脚本的位置</td>
+</tr>
+<tr>
+<td>osc_check_alter</td>
+<td>true</td>
+<td>bool</td>
+<td>对应参数--[no]check-alter</td>
+</tr>
+<tr>
+<td>osc_check_interval</td>
+<td>5</td>
+<td>int</td>
+<td>对应参数--check-interval，意义是Sleep time between checks for --max-lag.</td>
+</tr>
+<tr>
+<td>osc_check_replication_filters</td>
+<td>true</td>
+<td>bool</td>
+<td>对应参数--[no]check-replication-filters</td>
+</tr>
+<tr>
+<td>osc_chunk_size</td>
+<td>1000</td>
+<td>int</td>
+<td>对应参数--chunk-size</td>
+</tr>
+<tr>
+<td>osc_chunk_size_limit</td>
+<td>4</td>
+<td>int</td>
+<td>对应参数--chunk-size-limit</td>
+</tr>
+<tr>
+<td>osc_chunk_time</td>
+<td>1</td>
+<td>int</td>
+<td>对应参数--chunk-time</td>
+</tr>
+<tr>
+<td>osc_critical_thread_connected</td>
+<td>1000</td>
+<td>int</td>
+<td>对应参数--critical-load中的thread_connected部分</td>
+</tr>
+<tr>
+<td>osc_critical_thread_running</td>
+<td>80</td>
+<td>int</td>
+<td>对应参数--critical-load中的thread_running部分</td>
+</tr>
+<tr>
+<td>osc_drop_new_table</td>
+<td>true</td>
+<td>bool</td>
+<td>对应参数--[no]drop-new-table</td>
+</tr>
+<tr>
+<td>osc_drop_old_table</td>
+<td>true</td>
+<td>bool</td>
+<td>对应参数--[no]drop-old-table</td>
+</tr>
+<tr>
+<td>osc_max_lag</td>
+<td>3</td>
+<td>int</td>
+<td>对应参数--max-lag</td>
+</tr>
+<tr>
+<td>osc_max_thread_connected</td>
+<td>1000</td>
+<td>int</td>
+<td>对应参数--max-load中的thread_connected部分</td>
+</tr>
+<tr>
+<td>osc_max_thread_running</td>
+<td>80</td>
+<td>int</td>
+<td>对应参数--max-load中的thread_running部分</td>
+</tr>
+<tr>
+<td>osc_min_table_size</td>
+<td>16</td>
+<td>int</td>
+<td>OSC的开关，如果设置为0，则全部ALTER语句都走OSC，如果设置为非0，则当这个表占用空间大小大于这个值时才使用OSC方式。单位为M，这个表大小的计算方式是通过语句： select (DATA_LENGTH + INDEX_LENGTH)/1024/1024 from information_schema.tables where table_schema = "dbname" and table_name = "tablename"来实现的。</td>
+</tr>
+<tr>
+<td>osc_print_none</td>
+<td>false</td>
+<td>bool</td>
+<td>用来设置在Inception返回结果集中，对于原来OSC在执行过程的标准输出信息是不是要打印到结果集对应的错误信息列中，如果设置为1，就不打印，如果设置为0，就打印。而如果出现错误了，则都会打印</td>
+</tr>
+<tr>
+<td>osc_print_sql</td>
+<td>false</td>
+<td>bool</td>
+<td>对应参数--print</td>
+</tr>
+<tr>
+<td>osc_recursion_method</td>
+<td>processlist</td>
+<td>string</td>
+<td>对应参数recursion_method</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../backup/" class="btn btn-neutral" title="备份功能"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/hanchuanchuan/goInception/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../backup/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
