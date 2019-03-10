@@ -8,7 +8,7 @@
   
   <meta name="author" content="hanchuanchuan">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Ghost - goInception使用文档</title>
+  <title>DDL变更:gh-ost - goInception使用文档</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Ghost";
+    var mkdocs_page_name = "DDL\u53d8\u66f4:gh-ost";
     var mkdocs_page_input_path = "ghost.md";
     var mkdocs_page_url = "/hanchuanchuan/goInception/ghost/";
   </script>
@@ -83,6 +83,31 @@
     <a class="" href="../osc/">DDL变更:pt-osc</a>
 	    </li>
           
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">DDL变更:gh-ost</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#gh-ost">gh-ost</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">参数设置</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">进程命令</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#pt-osc">复用pt-osc参数</a></li>
+    
+
+    <li class="toctree-l2"><a href="#_3">参数说明</a></li>
+    
+
+    </ul>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -105,7 +130,7 @@
     
       
     
-    <li>Ghost</li>
+    <li>DDL变更:gh-ost</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/hanchuanchuan/goInception/edit/master/docs/ghost.md"
@@ -118,30 +143,105 @@
           <div role="main">
             <div class="section">
               
-                <h3 id="_1">支持参数</h3>
-<p>goInception的审核规则可以通过<code>inception show variables;</code>查看</p>
-<pre><code class="sql">inception show variables;
+                <h3 id="gh-ost">gh-ost</h3>
+<ul>
+<li>内置gh-ost源码(<code>v1.0.48</code>)，因此无须下载。</li>
+<li>手动终止和暂停及恢复功能已开放相应命令，因此隐藏相关参数。</li>
+</ul>
+<h4 id="_1">参数设置</h4>
+<p>gh-ost工具的设置参数可以可以通过<code>inception show variables like 'ghost%';</code>查看</p>
+<pre><code class="sql">inception show variables like 'ghost%';
 </code></pre>
 
 <p>支持以下方式设置:</p>
 <ul>
-<li>
-<ol>
-<li>通过<code>inception set</code>设置</li>
-</ol>
-</li>
+<li>1.通过<code>inception set</code>设置</li>
 </ul>
-<pre><code class="sql">inception set check_dml_limit = true;
+<pre><code class="sql">inception set osc_check_interval = 10;
 </code></pre>
 
 <ul>
-<li>
-<ol>
-<li>配置config.toml,并通过<code>-config=config.toml</code>指定配置文件启动</li>
-</ol>
-</li>
+<li>2.配置config.toml,并通过<code>-config=config.toml</code>指定配置文件启动</li>
 </ul>
-<p><img alt="variables列表" src="../images/variables.png" /></p>
+<h4 id="_2">进程命令</h4>
+<h5 id="osc">查看osc进程</h5>
+<!-- sqlsha1 -->
+
+<pre><code class="sql">inception get osc processlist;
+</code></pre>
+
+<p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>DBNAME</th>
+<th>TABLENAME</th>
+<th>COMMAND</th>
+<th>SQLSHA1</th>
+<th>PERCENT</th>
+<th>REMAINTIME</th>
+<th>INFOMATION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_inc</td>
+<td>t1</td>
+<td>alter table t1 add column c33 int</td>
+<td>*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F</td>
+<td>9</td>
+<td>00:36</td>
+<td>Copying <code>test_inc</code>.<code>t1</code>:   9% 00:36 remain</td>
+</tr>
+</tbody>
+</table>
+<h5 id="osc_1">查看指定osc进程</h5>
+<pre><code class="sql">inception get osc_percent '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>DBNAME</th>
+<th>TABLENAME</th>
+<th>SQLSHA1</th>
+<th>PERCENT</th>
+<th>REMAINTIME</th>
+<th>INFOMATION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test_inc</td>
+<td>t1</td>
+<td>*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F</td>
+<td>49</td>
+<td>00:14</td>
+<td>Copying <code>test_inc</code>.<code>t1</code>:  49% 00:14 remain</td>
+</tr>
+</tbody>
+</table>
+<h5 id="osc_2">终止指定osc进程</h5>
+<p><code>终止后注意手动清理相关辅助表</code></p>
+<pre><code class="sql">inception kill osc '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+-- 或同义词
+inception stop alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<h5 id="osc_3">暂停指定osc进程</h5>
+<pre><code class="sql">inception pause osc '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+-- 或同义词
+inception pause alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<h5 id="osc_4">恢复指定osc进程</h5>
+<pre><code class="sql">inception resume osc '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+-- 或同义词
+inception resume alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
+</code></pre>
+
+<h3 id="pt-osc">复用pt-osc参数</h3>
 <table>
 <thead>
 <tr>
@@ -153,224 +253,307 @@
 </thead>
 <tbody>
 <tr>
-<td>check_autoincrement_datatype</td>
-<td>false</td>
-<td>true,false</td>
-<td>当建表时自增列的类型不为int或者bigint时报错</td>
-</tr>
-<tr>
-<td>check_autoincrement_init_value</td>
-<td>false</td>
-<td>true,false</td>
-<td>当建表时自增列的值指定的不为1，则报错</td>
-</tr>
-<tr>
-<td>check_autoincrement_name</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表时，如果指定的自增列的名字不为ID，则报错，说明是有意义的，给提示</td>
-</tr>
-<tr>
-<td>check_column_comment</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表时，列没有注释时报错</td>
-</tr>
-<tr>
-<td>check_column_default_value</td>
-<td>false</td>
-<td>true,false</td>
-<td>检查在建表、修改列、新增列时，新的列属性是不是要有默认值</td>
-</tr>
-<tr>
-<td>check_dml_limit</td>
-<td>false</td>
-<td>true,false</td>
-<td>在DML语句中使用了LIMIT时，是不是要报错</td>
-</tr>
-<tr>
-<td>check_dml_orderby</td>
-<td>false</td>
-<td>true,false</td>
-<td>在DML语句中使用了Order By时，是不是要报错</td>
-</tr>
-<tr>
-<td>check_dml_where</td>
-<td>false</td>
-<td>true,false</td>
-<td>在DML语句中没有WHERE条件时，是不是要报错</td>
-</tr>
-<tr>
-<td>check_identifier</td>
-<td>false</td>
-<td>true,false</td>
-<td>检查标识符是否正确,规则是[a-z,A-Z,0-9,_]</td>
-</tr>
-<tr>
-<td>check_index_prefix</td>
-<td>false</td>
-<td>true,false</td>
-<td>是不是要检查索引名字前缀为"idx_"，检查唯一索引前缀是不是"uniq_"</td>
-</tr>
-<tr>
-<td>check_insert_field</td>
-<td>false</td>
-<td>true,false</td>
-<td>是不是要检查插入语句中的列链表的存在性</td>
-</tr>
-<tr>
-<td>check_primary_key</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表时，如果没有主键，则报错</td>
-</tr>
-<tr>
-<td>check_table_comment</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表时，表没有注释时报错</td>
-</tr>
-<tr>
-<td>check_timestamp_default</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表时，如果没有为timestamp类型指定默认值，则报错</td>
-</tr>
-<tr>
-<td>enable_autoincrement_unsigned</td>
-<td>false</td>
-<td>true,false</td>
-<td>自增列是不是要为无符号型</td>
-</tr>
-<tr>
-<td>enable_blob_type</td>
-<td>false</td>
-<td>true,false</td>
-<td>检查是不是支持BLOB字段，包括建表、修改列、新增列操作</td>
-</tr>
-<tr>
-<td>enable_column_charset</td>
-<td>false</td>
-<td>true,false</td>
-<td>允许列自己设置字符集</td>
-</tr>
-<tr>
-<td>enable_drop_table</td>
-<td>false</td>
-<td>true,false</td>
-<td>是否允许删除表</td>
-</tr>
-<tr>
-<td>enable_enum_set_bit</td>
-<td>false</td>
-<td>true,false</td>
-<td>是不是支持enum,set,bit数据类型</td>
-</tr>
-<tr>
-<td>enable_foreign_key</td>
-<td>false</td>
-<td>true,false</td>
-<td>是不是支持外键</td>
-</tr>
-<tr>
-<td>enable_identifer_keyword</td>
-<td>false</td>
-<td>true,false</td>
-<td>检查在SQL语句中，是不是有标识符被写成MySQL的关键字，默认值为报警。</td>
-</tr>
-<tr>
-<td>enable_not_innodb</td>
-<td>false</td>
-<td>true,false</td>
-<td>建表指定的存储引擎不为Innodb，不报错</td>
-</tr>
-<tr>
-<td>enable_nullable</td>
-<td>false</td>
-<td>true,false</td>
-<td>创建或者新增列时如果列为NULL，是不是报错</td>
-</tr>
-<tr>
-<td>enable_orderby_rand</td>
-<td>false</td>
-<td>true,false</td>
-<td>order by rand时是不是报错</td>
-</tr>
-<tr>
-<td>enable_partition_table</td>
-<td>false</td>
-<td>true,false</td>
-<td>是不是支持分区表</td>
-</tr>
-<tr>
-<td>enable_pk_columns_only_int</td>
-<td>false</td>
-<td>true,false</td>
-<td>是否强制主键列必须是int</td>
-</tr>
-<tr>
-<td>enable_select_star</td>
-<td>false</td>
-<td>true,false</td>
-<td>Select*时是不是要报错</td>
-</tr>
-<tr>
-<td>merge_alter_table</td>
-<td>false</td>
-<td>true,false</td>
-<td>在多个改同一个表的语句出现是，报错，提示合成一个</td>
-</tr>
-<tr>
-<td>max_char_length</td>
-<td>0</td>
+<td>osc_critical_thread_connected</td>
+<td>1000</td>
 <td>int</td>
-<td>最大char长度,当超出时警告转换为varchar类型</td>
+<td>对应参数--critical-load中的thread_connected部分</td>
 </tr>
 <tr>
-<td>max_keys</td>
-<td>3</td>
+<td>osc_critical_thread_running</td>
+<td>80</td>
 <td>int</td>
-<td>单表允许的最大索引数</td>
+<td>对应参数--critical-load中的thread_running部分</td>
 </tr>
 <tr>
-<td>max_key_parts</td>
-<td>3</td>
+<td>osc_max_thread_connected</td>
+<td>1000</td>
 <td>int</td>
-<td>一个索引最多可指定的列数</td>
+<td>对应参数--max-load中的thread_connected部分</td>
 </tr>
 <tr>
-<td>max_update_rows</td>
-<td>5000</td>
+<td>osc_max_thread_running</td>
+<td>80</td>
 <td>int</td>
-<td>当update/delete预估受影响行数超出设置值时警告</td>
+<td>对应参数--max-load中的thread_running部分</td>
 </tr>
 <tr>
-<td>max_primary_key_parts</td>
-<td>3</td>
+<td>osc_min_table_size</td>
+<td>16</td>
 <td>int</td>
-<td>主键最多可指定的列数</td>
+<td>OSC的开关，如果设置为0，则全部ALTER语句都走OSC，如果设置为非0，则当这个表占用空间大小大于这个值时才使用OSC方式。单位为M，这个表大小的计算方式是通过语句： select (DATA_LENGTH + INDEX_LENGTH)/1024/1024 from information_schema.tables where table_schema = "dbname" and table_name = "tablename"来实现的。</td>
 </tr>
 <tr>
-<td>sql_safe_updates</td>
-<td>-1</td>
-<td>-1,0,1</td>
-<td>安全更新.-1表示不做操作,基于远端数据库,0表示关闭安全更新,1表示开启安全更新</td>
+<td>osc_print_none</td>
+<td>false</td>
+<td>bool</td>
+<td>用来设置在Inception返回结果集中，对于原来OSC在执行过程的标准输出信息是不是要打印到结果集对应的错误信息列中，如果设置为1，就不打印，如果设置为0，就打印。而如果出现错误了，则都会打印</td>
 </tr>
 </tbody>
 </table>
-<!--
-auto_commit     这个参数的作用是为了匹配Python客户端每次自动设置auto_commit=0的，如果取消则会报错，针对Inception本身没有实际意义
-general_log     这个参数就是原生的MySQL的参数，用来记录在Inception服务上执行过哪些语句，用来定位一些问题等
-inception_enable_sql_statistic      设置是不是支持统计Inception执行过的语句中，各种语句分别占多大比例，如果打开这个参数，则每次执行的情况都会在备份数据库实例中的inception库的statistic表中以一条记录存储这次操作的统计情况，每次操作对应一条记录，这条记录中含有的信息是各种类型的语句执行次数情况，具体的信息需要参考后面一章<<Inception 的统计功能>>
-inception_read_only     设置当前Inception服务器是不是只读的，这是为了防止一些人具有修改权限的帐号时，通过Inception误修改一些数据，如果inception_read_only设置为ON，则即使开了enable-execute，同时又有执行权限，也不会去执行，审核完成即返回
-inception_check_identifier      打开与关闭Inception对SQL语句中各种名字的检查，如果设置为ON，则如果发现名字中存在除数字、字母、下划线之外的字符时，会报Identifier "invalidname" is invalid, valid options: [a-z,A-Z,0-9,_].
-inception_osc_on        一个全局的OSC开关，默认是打开的，如果想要关闭则设置为OFF，这样就会直接修改
-inception_osc_print_sql     对应参数--print
-inception_osc_print_none        用来设置在Inception返回结果集中，对于原来OSC在执行过程的标准输出信息是不是要打印到结果集对应的错误信息列中，如果设置为1，就不打印，如果设置为0，就打印。而如果出现错误了，则都会打印 -->
+<h3 id="_3">参数说明</h3>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>可选范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ghost_on</td>
+<td>false</td>
+<td>bool</td>
+<td>gh-ost开关</td>
+</tr>
+<tr>
+<td>ghost_aliyun_rds</td>
+<td>false</td>
+<td>bool</td>
+<td>阿里云rds数据库标志</td>
+</tr>
+<tr>
+<td>ghost_allow_master_master</td>
+<td>false</td>
+<td>bool</td>
+<td>允许gh-ost运行在双主复制架构中，一般与-assume-master-host参数一起使用</td>
+</tr>
+<tr>
+<td>ghost_allow_nullable_unique_key</td>
+<td>false</td>
+<td>bool</td>
+<td>允许gh-ost在数据迁移(migrate)依赖的唯一键可以为NULL，默认为不允许为NULL的唯一键。如果数据迁移(migrate)依赖的唯一键允许NULL值，则可能造成数据不正确，请谨慎使用。</td>
+</tr>
+<tr>
+<td>ghost_allow_on_master</td>
+<td><code>true</code></td>
+<td>bool</td>
+<td>允许gh-ost直接运行在主库上。默认gh-ost连接的<code>主库</code>。<code>(暂未添加从库地址的配置)</code></td>
+</tr>
+<tr>
+<td>ghost_approve_renamed_columns</td>
+<td>true</td>
+<td>bool</td>
+<td>如果支持修改列名,则需设置此参数为<code>true</code>,否则gh-ost不会执行。</td>
+</tr>
+<tr>
+<td>ghost_assume_master_host</td>
+<td></td>
+<td>string</td>
+<td>为gh-ost指定一个主库，格式为"ip:port"或者"hostname:port"。默认推荐gh-ost连接从库。</td>
+</tr>
+<tr>
+<td>ghost_assume_rbr</td>
+<td>true</td>
+<td>bool</td>
+<td>确认gh-ost连接的数据库实例的binlog_format=ROW的情况下，可以指定-assume-rbr，这样可以禁止从库上运行stop slave,start slave,执行gh-ost用户也不需要SUPER权限。<code>为避免影响生产数据库，此参数建议置为true</code></td>
+</tr>
+<tr>
+<td>ghost_chunk_size</td>
+<td>1000</td>
+<td>int</td>
+<td>在每次迭代中处理的行数量(允许范围：100-100000)，默认值为1000。</td>
+</tr>
+<tr>
+<td>ghost_concurrent_rowcount</td>
+<td>true</td>
+<td>bool</td>
+<td>该参数如果为True(默认值)，则进行row-copy之后，估算统计行数(使用explain select count(*)方式)，并调整ETA时间，否则，gh-ost首先预估统计行数，然后开始row-copy。</td>
+</tr>
+<tr>
+<td>ghost_critical_load_hibernate_seconds</td>
+<td>0</td>
+<td>int</td>
+<td>负载达到critical-load时，gh-ost在指定的时间内进入休眠状态。 它不会读/写任何来自任何服务器的任何内容。</td>
+</tr>
+<tr>
+<td>ghost_critical_load_interval_millis</td>
+<td>0</td>
+<td>int</td>
+<td>当值为0时，当达到-critical-load，gh-ost立即退出。当值不为0时，当达到-critical-load，gh-ost会在-critical-load-interval-millis秒数后，再次进行检查，再次检查依旧达到-critical-load，gh-ost将会退出。</td>
+</tr>
+<tr>
+<td>ghost_cut_over</td>
+<td>atomic</td>
+<td>string</td>
+<td>选择cut-over类型:atomic/two-step，atomic(默认)类型的cut-over是github的算法，two-step采用的是facebook-OSC的算法。</td>
+</tr>
+<tr>
+<td>ghost_cut_over_exponential_backoff</td>
+<td>false</td>
+<td>bool</td>
+<td>Wait exponentially longer intervals between failed cut-over attempts. Wait intervals obey a maximum configurable with 'exponential-backoff-max-interval').</td>
+</tr>
+<tr>
+<td>ghost_cut_over_lock_timeout_seconds</td>
+<td>3</td>
+<td>int</td>
+<td>gh-ost在cut-over阶段最大的锁等待时间，当锁超时时，gh-ost的cut-over将重试。(默认值：3)</td>
+</tr>
+<tr>
+<td>ghost_default_retries</td>
+<td>60</td>
+<td>int</td>
+<td>各种操作在panick前重试次数。(默认为60)</td>
+</tr>
+<tr>
+<td>ghost_discard_foreign_keys</td>
+<td>false</td>
+<td>bool</td>
+<td>该参数针对一个有外键的表，在gh-ost创建ghost表时，并不会为ghost表创建外键。该参数很适合用于删除外键，除此之外，请谨慎使用。</td>
+</tr>
+<tr>
+<td>ghost_dml_batch_size</td>
+<td>10</td>
+<td>int</td>
+<td>在单个事务中应用DML事件的批量大小（范围1-100）（默认值为10）</td>
+</tr>
+<tr>
+<td>ghost_exact_rowcount</td>
+<td>false</td>
+<td>bool</td>
+<td>准确统计表行数(使用select count(*)的方式)，得到更准确的预估时间。</td>
+</tr>
+<tr>
+<td>ghost_exponential_backoff_max_interval</td>
+<td>64</td>
+<td>int</td>
+<td>Maximum number of seconds to wait between attempts when performing various operations with exponential backoff. (default 64)</td>
+</tr>
+<tr>
+<td>ghost_force_named_cut_over</td>
+<td>false</td>
+<td>bool</td>
+<td>When true, the ‘unpostpone</td>
+</tr>
+<tr>
+<td>ghost_force_table_names</td>
+<td></td>
+<td>string</td>
+<td>table name prefix to be used on the temporary tables</td>
+</tr>
+<tr>
+<td>ghost_gcp</td>
+<td>false</td>
+<td>bool</td>
+<td>google云平台支持</td>
+</tr>
+<tr>
+<td>ghost_heartbeat_interval_millis</td>
+<td>500</td>
+<td>int</td>
+<td>gh-ost心跳频率值，默认为500。</td>
+</tr>
+<tr>
+<td>ghost_initially_drop_ghost_table</td>
+<td>false</td>
+<td>bool</td>
+<td>gh-ost操作之前，检查并删除已经存在的ghost表。该参数不建议使用，请手动处理原来存在的ghost表。</td>
+</tr>
+<tr>
+<td>ghost_initially_drop_old_table</td>
+<td>false</td>
+<td>bool</td>
+<td>gh-ost操作之前，检查并删除已经存在的旧表。该参数不建议使用，请手动处理原来存在的ghost表。</td>
+</tr>
+<tr>
+<td>ghost_initially_drop_socket_file</td>
+<td>false</td>
+<td>bool</td>
+<td>gh-ost强制删除已经存在的socket文件。该参数不建议使用，可能会删除一个正在运行的gh-ost程序，导致DDL失败。</td>
+</tr>
+<tr>
+<td>ghost_max_lag_millis</td>
+<td>1500</td>
+<td>int</td>
+<td>主从复制最大延迟时间，当主从复制延迟时间超过该值后，gh-ost将采取节流(throttle)措施，默认值：1500s。</td>
+</tr>
+<tr>
+<td>ghost_nice_ratio</td>
+<td>0</td>
+<td>float</td>
+<td>每次chunk时间段的休眠时间，范围[0.0...100.0]。e.g:0：每个chunk时间段不休眠，即一个chunk接着一个chunk执行；1：每row-copy 1毫秒，则另外休眠1毫秒；0.7：每row-copy 10毫秒，则另外休眠7毫秒。</td>
+</tr>
+<tr>
+<td>ghost_ok_to_drop_table</td>
+<td>true</td>
+<td>bool</td>
+<td>gh-ost操作结束后，删除旧表，默认状态是<code>删除旧表</code>。</td>
+</tr>
+<tr>
+<td>ghost_postpone_cut_over_flag_file</td>
+<td></td>
+<td>string</td>
+<td>当这个文件存在的时候，gh-ost的cut-over阶段将会被推迟，直到该文件被删除。</td>
+</tr>
+<tr>
+<td>ghost_replication_lag_query</td>
+<td></td>
+<td>string</td>
+<td>检查主从复制延迟的SQL语句，默认gh-ost通过show slave status获取Seconds_behind_master作为主从延迟时间依据。如果使用pt-heartbeat工具，检查主从复制延迟的SQL语句类似于:<code>SELECT ROUND(UNIX_TIMESTAMP() - MAX(UNIX_TIMESTAMP(ts))) AS delay FROM my_schema.heartbeat</code>;</td>
+</tr>
+<tr>
+<td>ghost_skip_foreign_key_checks</td>
+<td>true</td>
+<td>bool</td>
+<td>跳过外键检查,默认为<code>true</code></td>
+</tr>
+<tr>
+<td>ghost_throttle_additional_flag_file</td>
+<td></td>
+<td>string</td>
+<td>当该文件被创建后，gh-ost操作立即停止。该参数可以用在多个gh-ost同时操作的时候，创建一个文件，让所有的gh-ost操作停止，或者删除这个文件，让所有的gh-ost操作恢复。</td>
+</tr>
+<tr>
+<td>ghost_throttle_control_replicas</td>
+<td></td>
+<td>string</td>
+<td>列出所有需要被检查主从复制延迟的从库。</td>
+</tr>
+<tr>
+<td>ghost_throttle_flag_file</td>
+<td></td>
+<td>string</td>
+<td>当该文件被创建后，gh-ost操作立即停止。该参数适合控制单个gh-ost操作。-throttle-additional-flag-file string适合控制多个gh-ost操作。</td>
+</tr>
+<tr>
+<td>ghost_throttle_http</td>
+<td></td>
+<td>string</td>
+<td>The --throttle-http flag allows for throttling via HTTP. Every 100ms gh-ost issues a HEAD request to the provided URL. If the response status code is not 200 throttling will kick in until a 200 response status code is returned.</td>
+</tr>
+<tr>
+<td>ghost_throttle_query</td>
+<td></td>
+<td>string</td>
+<td>节流查询。每秒钟执行一次。当返回值=0时不需要节流，当返回值&gt;0时，需要执行节流操作。该查询会在数据迁移(migrated)服务器上操作，所以请确保该查询是轻量级的。</td>
+</tr>
+<tr>
+<td>ghost_timestamp_old_table</td>
+<td>false</td>
+<td>bool</td>
+<td>在旧表名中使用时间戳。 这会使旧表名称具有唯一且无冲突的交叉迁移</td>
+</tr>
+<tr>
+<td>ghost_tungsten</td>
+<td>false</td>
+<td>bool</td>
+<td>告诉gh-ost你正在运行的是一个tungsten-replication拓扑结构。</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../osc/" class="btn btn-neutral" title="DDL变更:pt-osc"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -395,6 +578,8 @@ inception_osc_print_none        用来设置在Inception返回结果集中，对
       
           <a href="https://github.com/hanchuanchuan/goInception/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
+      
+        <span><a href="../osc/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>

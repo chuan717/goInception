@@ -83,13 +83,26 @@
     <a class="current" href="./">DDL变更:pt-osc</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#_1">使用说明</a></li>
+    <li class="toctree-l2"><a href="#pt-online-schema-change">pt-online-schema-change</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">参数设置</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">进程命令</a></li>
+        
+        </ul>
     
 
-    <li class="toctree-l2"><a href="#_2">参数说明</a></li>
+    <li class="toctree-l2"><a href="#_3">参数说明</a></li>
     
 
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ghost/">DDL变更:gh-ost</a>
 	    </li>
           
         </ul>
@@ -127,8 +140,12 @@
           <div role="main">
             <div class="section">
               
-                <h3 id="_1">使用说明</h3>
-<p><strong>参数设置</strong></p>
+                <h3 id="pt-online-schema-change">pt-online-schema-change</h3>
+<ul>
+<li>使用前需要手动下载安装<code>percona-toolkit</code> (<code>v3.0.4</code>或参数兼容版本)</li>
+<li>使用前需要指定pt-osc目录参数<code>osc_bin_dir</code>，默认为<code>/usr/local/bin</code></li>
+</ul>
+<h4 id="_1">参数设置</h4>
 <p>pt-osc工具的设置参数可以可以通过<code>inception show variables like 'osc%';</code>查看</p>
 <pre><code class="sql">inception show variables like 'osc%';
 </code></pre>
@@ -143,7 +160,8 @@
 <ul>
 <li>2.配置config.toml,并通过<code>-config=config.toml</code>指定配置文件启动</li>
 </ul>
-<p><strong>查看osc进程</strong></p>
+<h4 id="_2">进程命令</h4>
+<h5 id="osc">查看osc进程</h5>
 <!-- sqlsha1 -->
 
 <pre><code class="sql">inception get osc processlist;
@@ -174,7 +192,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>查看指定osc进程</strong></p>
+<h5 id="osc_1">查看指定osc进程</h5>
 <pre><code class="sql">inception get osc_percent '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
 </code></pre>
 
@@ -201,14 +219,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>终止指定osc进程</strong>
-<code>终止后注意手动清理相关辅助表</code></p>
+<h5 id="osc_2">终止指定osc进程</h5>
+<p><code>终止后注意手动清理相关辅助表</code></p>
 <pre><code class="sql">inception kill osc '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
 -- 或同义词
 inception stop alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
 </code></pre>
 
-<h3 id="_2">参数说明</h3>
+<h3 id="_3">参数说明</h3>
 <table>
 <thead>
 <tr>
@@ -348,6 +366,8 @@ inception stop alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../ghost/" class="btn btn-neutral float-right" title="DDL变更:gh-ost">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
       
         <a href="../backup/" class="btn btn-neutral" title="备份功能"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
@@ -379,6 +399,8 @@ inception stop alter '*E53542EFF4E179BE267210114EC5EDBEF9DC5D8F';
       
         <span><a href="../backup/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../ghost/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
