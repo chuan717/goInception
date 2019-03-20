@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="hanchuanchuan">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>更新日志 - goInception使用文档</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u66f4\u65b0\u65e5\u5fd7";
+    var mkdocs_page_input_path = "changelog.md";
+    var mkdocs_page_url = "/hanchuanchuan/goInception/changelog/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> goInception使用文档</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">介绍</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">安装</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../params/">调用选项</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../demo/">使用示例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../options/">审核规则</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../backup/">备份功能</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../osc/">DDL变更:pt-osc</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../ghost/">DDL变更:gh-ost</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">更新日志</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#goinception">goInception 更新日志</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#v052-beta-2019-3-17">[v0.5.2-beta] - 2019-3-17</a></li>
+        
+            <li><a class="toctree-l3" href="#v051-beta-2019-3-14">[v0.5.1-beta] - 2019-3-14</a></li>
+        
+            <li><a class="toctree-l3" href="#v05-beta-2019-3-10">[v0.5-beta] - 2019-3-10</a></li>
+        
+            <li><a class="toctree-l3" href="#v041-beta-2019-3-6">[v0.4.1-beta] - 2019-3-6</a></li>
+        
+            <li><a class="toctree-l3" href="#v04-beta-2019-3-5">[v0.4-beta] - 2019-3-5</a></li>
+        
+            <li><a class="toctree-l3" href="#v03-beta-2019-2-13">[v0.3-beta] - 2019-2-13</a></li>
+        
+            <li><a class="toctree-l3" href="#v02-beta-2019-1-31">[v0.2-beta] - 2019-1-31</a></li>
+        
+            <li><a class="toctree-l3" href="#v01-beta-2019-1-25">[v0.1-beta] - 2019-1-25</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">goInception使用文档</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>更新日志</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/hanchuanchuan/goInception/edit/master/docs/changelog.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="goinception">goInception 更新日志</h1>
+<h2 id="v052-beta-2019-3-17">[v0.5.2-beta] - 2019-3-17</h2>
+<h3 id="update">Update</h3>
+<ul>
+<li>优化主键NULL列审核规则(审核<code>DEFAULT NULL</code>)</li>
+<li>优化索引总长度校验,根据列字符集判断字节数长度</li>
+<li>优化DDL备份对默认值的处理</li>
+</ul>
+<h2 id="v051-beta-2019-3-14">[v0.5.1-beta] - 2019-3-14</h2>
+<h3 id="update_1">Update</h3>
+<ul>
+<li>优化option解析规则,密码兼容特殊字符</li>
+<li>优化语法解析失败时返回的sql语句</li>
+<li>添加中文的异常和警告信息</li>
+<li>添加新的参数<ul>
+<li>lang 设置返回的异常信息语言,可选值 <code>en-US</code>,<code>zh-CN</code>,默认<code>en-US</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="fix">Fix</h3>
+<ul>
+<li>修复mariadb备份警告信息重复的问题</li>
+</ul>
+<h2 id="v05-beta-2019-3-10">[v0.5-beta] - 2019-3-10</h2>
+<h3 id="update_2">Update</h3>
+<ul>
+<li>兼容mariadb v10版本的备份兼容(高并发时回滚语句可能有误，须注意检查)</li>
+<li>更新pt-osc部分参数名，使其与inception保持一致<ul>
+<li>osc_critical_running -&gt; osc_critical_thread_running</li>
+<li>osc_critical_connected -&gt; osc_critical_thread_connected</li>
+<li>osc_max_running -&gt; osc_max_thread_running</li>
+<li>osc_max_connected -&gt; osc_max_thread_connected</li>
+</ul>
+</li>
+<li>隐藏gh-osc部分未使用参数</li>
+<li>添加是否允许删除数据库参数<code>enable_drop_database</code></li>
+<li>优化系统变量variables显示和设置</li>
+<li>调整部分参数默认值<ul>
+<li>ghost_ok_to_drop_table <code>true</code></li>
+<li>ghost_skip_foreign_key_checks <code>true</code></li>
+<li>osc_chunk_size <code>1000</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="fix_1">Fix</h3>
+<ul>
+<li>修复json列校验异常问题 (#7)</li>
+</ul>
+<h2 id="v041-beta-2019-3-6">[v0.4.1-beta] - 2019-3-6</h2>
+<h3 id="update_3">Update</h3>
+<ul>
+<li>兼容mariadb数据库(v5.5.60)<ul>
+<li>添加mariadb的binlog解析支持(测试版本<strong>v5.5.60</strong>,v10版本由于binlog格式改变,暂无法解析thread_id)</li>
+<li>优化备份失败时的返回信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="v04-beta-2019-3-5">[v0.4-beta] - 2019-3-5</h2>
+<h3 id="new-features">New Features</h3>
+<ul>
+<li>添加gh-ost工具支持<ul>
+<li>无需安装gh-ost,功能内置(v1.0.48)</li>
+<li>进程列表 <code>inception get osc processlist</code></li>
+<li>指定进程信息 <code>inception get osc_percent 'sqlsha1'</code></li>
+<li>进程终止 <code>inception stop alter 'sqlsha1'</code> (同义词<code>inception kill osc 'sqlsha1'</code>)</li>
+<li>进程暂停 <code>inception pause alter 'sqlsha1'</code> (同义词<code>inception pause osc 'sqlsha1'</code>)</li>
+<li>进程恢复 <code>inception resume alter 'sqlsha1'</code> (同义词<code>inception resume osc 'sqlsha1'</code>)</li>
+<li>兼容gh-ost参数 <code>inception show variables like 'ghost%'</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="v03-beta-2019-2-13">[v0.3-beta] - 2019-2-13</h2>
+<h3 id="new-features_1">New Features</h3>
+<ul>
+<li>添加pt-osc工具支持<ul>
+<li><code>inception get osc processlist</code> 查看osc进程列表</li>
+<li><code>inception get osc_percent 'sqlsha1'</code> 查看指定的osc进程</li>
+<li><code>inception stop alter 'sqlsha1'</code> (同义词<code>inception kill osc 'sqlsha1'</code>)中止指定的osc进程</li>
+</ul>
+</li>
+</ul>
+<h2 id="v02-beta-2019-1-31">[v0.2-beta] - 2019-1-31</h2>
+<h3 id="optimizer">Optimizer</h3>
+<ul>
+<li>优化二进制构建方式，压缩安装包大小</li>
+<li>
+<p>移除vendor依赖，优化GO111MODULE使用方式</p>
+</li>
+<li>
+<p>跳过权限校验，以避免登陆goInception失败</p>
+</li>
+<li>移除root身份启动校验，以避免windows无法启动</li>
+<li>优化inception set变量时的类型校验</li>
+</ul>
+<h2 id="v01-beta-2019-1-25">[v0.1-beta] - 2019-1-25</h2>
+<h4 id="goinception_1">goInception正式发布</h4>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../ghost/" class="btn btn-neutral" title="DDL变更:gh-ost"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/hanchuanchuan/goInception/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ghost/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
