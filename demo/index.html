@@ -77,6 +77,9 @@
     <li class="toctree-l2"><a href="#_2">进程列表</a></li>
     
 
+    <li class="toctree-l2"><a href="#new">中止进程(*new)</a></li>
+    
+
     </ul>
 	    </li>
           
@@ -253,6 +256,17 @@ print(tb)
 </code></pre>
 
 <p><img alt="variables列表" src="../images/processlist.png" /></p>
+<h3 id="new">中止进程(<code>*new</code>)</h3>
+<p><strong> 在审核和执行阶段可以kill,备份阶段不再允许kill </strong> <code>v0.6.2 新增</code></p>
+<p>相关链接： <a href="https://github.com/hanchuanchuan/goInception/issues/10">kill 操作支持</a></p>
+<pre><code class="bash">mysql -h127.0.0.1 -P4000
+</code></pre>
+
+<pre><code class="sql">inception show processlist;
+</code></pre>
+
+<pre><code class="sql">kill 2;
+</code></pre>
               
             </div>
           </div>

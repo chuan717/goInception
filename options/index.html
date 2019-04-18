@@ -239,6 +239,12 @@
 <td>建表时，表没有注释时报错</td>
 </tr>
 <tr>
+<td>check_timestamp_count <code>v0.6.0</code></td>
+<td>false</td>
+<td>true,false</td>
+<td>配置是否检查current_timestamp数量</td>
+</tr>
+<tr>
 <td>check_timestamp_default</td>
 <td>false</td>
 <td>true,false</td>
@@ -279,6 +285,12 @@
 <td>false</td>
 <td>true,false</td>
 <td>是不是支持enum,set,bit数据类型</td>
+</tr>
+<tr>
+<td>enable_fingerprint <code>v0.6.2</code></td>
+<td>false</td>
+<td>true,false</td>
+<td>sql指纹功能。dml语句相似时，可以根据相同的指纹ID复用explain结果，以减少远端数据库explain操作，并提高审核速度</td>
 </tr>
 <tr>
 <td>enable_foreign_key</td>
@@ -335,7 +347,7 @@
 <td>是否允许指定表和数据库的字符集</td>
 </tr>
 <tr>
-<td>lang</td>
+<td>lang <code>v0.5.1</code></td>
 <td>en-US</td>
 <td>en-US,zh-CN</td>
 <td>返回的信息使用语言,可选值<code>en-US</code>,<code>zh-CN</code></td>

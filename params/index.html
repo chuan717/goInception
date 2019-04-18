@@ -205,6 +205,12 @@ inception_magic_commit;
 <td>bool</td>
 <td>是否忽略警告，仅在执行时生效。该参数控制有警告时是继续执行还是中止</td>
 </tr>
+<tr>
+<td>fingerprint <code>v0.6.2</code></td>
+<td>false</td>
+<td>bool</td>
+<td>开启sql指纹功能。dml语句相似时，可以根据相同的指纹ID复用explain结果，以减少远端数据库explain操作，并提高审核速度</td>
+</tr>
 </tbody>
 </table>
               
