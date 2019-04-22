@@ -359,6 +359,12 @@
 <td>最大char长度,当超出时警告转换为varchar类型</td>
 </tr>
 <tr>
+<td>max_insert_rows   <code>v0.6.3</code></td>
+<td>0</td>
+<td>int</td>
+<td>设置insert values允许的最大行数.0为不限制</td>
+</tr>
+<tr>
 <td>max_key_parts</td>
 <td>3</td>
 <td>int</td>
@@ -387,6 +393,12 @@
 <td>false</td>
 <td>true,false</td>
 <td>在多个改同一个表的语句出现是，报错，提示合成一个</td>
+</tr>
+<tr>
+<td>must_have_columns  <code>v0.6.3</code></td>
+<td>''</td>
+<td>string</td>
+<td>用以指定建表时必须创建的列。多个列时以逗号分隔(<code>格式: 列名 [列类型,可选]</code>)</td>
 </tr>
 <tr>
 <td>sql_safe_updates</td>
