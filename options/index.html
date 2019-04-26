@@ -347,6 +347,12 @@
 <td>是否允许指定表和数据库的字符集</td>
 </tr>
 <tr>
+<td>enable_set_collation <code>v0.7</code></td>
+<td>false</td>
+<td>true,false</td>
+<td>是否允许指定表和数据库的排序规则</td>
+</tr>
+<tr>
 <td>lang <code>v0.5.1</code></td>
 <td>en-US</td>
 <td>en-US,zh-CN</td>
@@ -410,7 +416,13 @@
 <td>support_charset</td>
 <td>utf8,utf8mb4</td>
 <td>string</td>
-<td>支持的字符集集合,多个字符集以逗号分隔</td>
+<td>支持的字符集,多个时以逗号分隔</td>
+</tr>
+<tr>
+<td>support_collation <code>v0.7</code></td>
+<td>''</td>
+<td>string</td>
+<td>支持的排序规则,多个时以逗号分隔</td>
 </tr>
 </tbody>
 </table>
